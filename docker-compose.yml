@@ -27,5 +27,16 @@ services:
     ports:
       - "8080:80"   # Open phpMyAdmin at http://localhost:8080
 
+  react-ui:
+    build:
+      context: https://github.com/AungMoeThuam/archery-recorder-app.git
+      dockerfile: Dockerfile
+    container_name: cos20031-react
+    restart: always
+    ports:
+      - "3000:80" # Open React at http://localhost:3000
+    depends_on:
+      - mysql # Will be Backend Service in the future
+
 volumes:
   mysql_data:
