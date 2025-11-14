@@ -1,0 +1,31 @@
+services:
+  mysql:
+    image: mysql:8.0
+    container_name: cos20031-mysql
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: cos20031
+    ports:
+      - "3306:3306"
+    volumes:
+      # Automatically run schema.sql on first startup
+      - ./mysql/init:/docker-entrypoint-initdb.d
+      # Persist database data
+      - mysql_data:/var/lib/mysql
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    container_name: cos20031-phpmyadmin
+    restart: always
+    depends_on:
+      - mysql
+    environment:
+      PMA_HOST: mysql
+      PMA_USER: root
+      PMA_PASSWORD: root
+    ports:
+      - "8080:80"   # Open phpMyAdmin at http://localhost:8080
+
+volumes:
+  mysql_data:
