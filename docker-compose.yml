@@ -25,7 +25,7 @@ services:
       PMA_USER: root
       PMA_PASSWORD: root
     ports:
-      - "8080:80"   # Open phpMyAdmin at http://localhost:8080
+      - "8080:80" # Open phpMyAdmin at http://localhost:8080
 
   react-ui:
     build:
@@ -37,6 +37,24 @@ services:
       - "3000:80" # Open React at http://localhost:3000
     depends_on:
       - mysql # Will be Backend Service in the future
+
+  archery-detection:
+    build:
+      context: https://github.com/Showwaiyan/Archery-target-detection.git
+      dockerfile: Dockerfile
+    container_name: cos20031-detection
+    restart: always
+    ports:
+      - "5000:5000" # app's Flask/FastAPI/etc. port
+    depends_on:
+      - mysql
+    environment:
+      DB_HOST: localhost
+      DB_USER: root
+      DB_PASSWORD: root
+      DB_NAME: cos20031
+      DB_PORT: 3306
+      REACT_URL: localhost:3000
 
 volumes:
   mysql_data:
