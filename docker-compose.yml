@@ -58,5 +58,23 @@ services:
       UPLOAD_DIR: /app/upload
       ROBOFLOW_API: test # Need to get yourown api
 
+
+  archery-backend:
+    build:
+      context: https://github.com/AungMoeThuam/archery-recorder-backend.git
+      dockerfile: Dockerfile
+    container_name: cos20031-backend
+    restart: always
+    ports:
+      - "8000:8000" # Backend API exposed at http://localhost:8000
+    depends_on:
+      - mysql
+    environment:
+      DB_HOST: mysql
+      DB_USER: root
+      DB_PASSWORD: root
+      DB_NAME: cos20031
+      DB_PORT: 3306
+
 volumes:
   mysql_data:
