@@ -45,7 +45,7 @@ services:
     container_name: cos20031-detection
     restart: always
     ports:
-      - "5000:5000" # app's Flask/FastAPI/etc. port
+      - "8000:8000" # app's Flask/FastAPI/etc. port
     depends_on:
       - mysql
     environment:
@@ -56,7 +56,7 @@ services:
       DB_PORT: 3306
       REACT_URL: localhost:3000
       UPLOAD_DIR: /app/upload
-      ROBOFLOW_API: test # Need to get yourown api
+      ROBOFLOW_API: "test" # use your own api
 
 
   archery-backend:
@@ -66,7 +66,7 @@ services:
     container_name: cos20031-backend
     restart: always
     ports:
-      - "8000:8000" # Backend API exposed at http://localhost:8000
+      - "4000:4000" # Backend API exposed at http://localhost:4000
     depends_on:
       - mysql
     environment:
